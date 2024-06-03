@@ -1,0 +1,9 @@
+ec\edu\ups\prueba\conf\JaegerConfig.class
+ec\edu\ups\prueba\business\InsertDatos.class
+ec\edu\ups\prueba\services\CORSFilter.class
+ec\edu\ups\prueba\services\Path.class
+ec\edu\ups\prueba\dao\AutoDAO.class
+ec\edu\ups\prueba\model\Auto.class
+ec\edu\ups\prueba\services\ErrorMessage.class
+ec\edu\ups\prueba\services\AutoService.class
+ec\edu\ups\prueba\business\Datos.class

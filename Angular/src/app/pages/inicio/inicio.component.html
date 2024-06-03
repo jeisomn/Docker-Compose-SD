@@ -1,0 +1,50 @@
+
+<h1>Autos</h1>
+
+<form>
+    <table>
+        <tr>
+            <td>Código</td>
+            <td><input type="number" name="txtCodigo" [(ngModel)]="aut.codigo"></td>
+        </tr>
+        <tr>
+            <td>Marca</td>
+            <td><input type="text" name="txtMarca" [(ngModel)]="aut.marca"></td>
+        </tr>
+        <tr>
+            <td>Placa</td>
+            <td><input type="text" name="txtPlaca" [(ngModel)]="aut.placa"></td>
+        </tr>
+        <tr>
+            <td>Precio</td>
+            <td><input type="number" name="txtPrecio" [(ngModel)]="aut.precio"></td>
+        </tr>
+    </table>
+    <td>
+        <button (click)="modoGuardar ? crearAuto() : actualizarAuto()">
+            {{ modoGuardar ? 'Guardar' : 'Actualizar' }}
+          </button>
+</form>
+
+<hr/>
+
+<table>
+    <tr>
+        <th>Código</th>
+        <th>Marca</th>
+        <th>Placa</th>
+        <th>Precio</th>
+        <th>Actualizar</th>
+        <th>Eliminar</th>
+
+    </tr>
+    <tr *ngFor="let aut of autos">
+        <td>{{aut.codigo}}</td>
+        <td>{{aut.marca}}</td>
+        <td>{{aut.placa}}</td>
+        <td>{{aut.precio}}</td>
+        <td><button class="update" (click)="llenarFormulario(aut)">Actualizar Datos</button></td>
+        <td> <button class="delete" (click)="eliminar(aut.codigo)"> Eliminar Auto</button></td>
+    </tr>
+
+</table>

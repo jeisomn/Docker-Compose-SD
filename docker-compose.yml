@@ -1,0 +1,81 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=bdautos
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+    networks:
+      - datalogger_net
+
+  wildfly:
+    image: wildfly
+    ports:
+      - "8080:8080"
+      - "9990:9990"
+    environment:
+      JAEGER_SERVICE_NAME: jaeger
+      JAEGER_AGENT_HOST: jaeger
+      JAEGER_AGENT_PORT: 6831
+      JAEGER_SAMPLER_TYPE: const
+      JAEGER_SAMPLER_PARAM: 1
+    depends_on:
+      - postgres
+    networks:
+      - datalogger_net
+    
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: jeisonpanora12@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - 5050:80
+    depends_on:
+      - postgres
+    networks:
+      - datalogger_net
+
+  swagger:
+    image: swaggerapi/swagger-ui
+    ports: 
+      - "8083:8080"
+    environment:
+      SWAGGER_JSON: /restful/openapi.yaml
+    volumes: 
+      - ./openapi.yaml:/restful/openapi.yaml
+    networks:
+      - datalogger_net
+  
+  jaeger:
+    image: jaegertracing/all-in-one:1.16.0
+    ports:
+      - "6831:6831/udp"
+      - "6832:6832/udp"
+      - "5778:5778"
+      - "16686:16686"
+      - "14250:14250"
+      - "14268:14268"
+      - "14269:14269"
+      - "9411:9411"
+    depends_on:
+      - wildfly
+    networks:
+      - datalogger_net
+
+  angular:
+    image: angular
+    ports:
+      - "4200:80"
+    depends_on:
+      - wildfly
+    networks:
+      - datalogger_net
+
+networks:
+  datalogger_net:
