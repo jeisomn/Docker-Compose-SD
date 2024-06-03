@@ -14,7 +14,7 @@ services:
       - datalogger_net
 
   wildfly:
-    image: wildfly
+    image: dockerwildfly
     ports:
       - "8080:8080"
       - "9990:9990"
@@ -69,7 +69,7 @@ services:
       - datalogger_net
 
   angular:
-    image: angular
+    image: dockerangular
     ports:
       - "4200:80"
     depends_on:
